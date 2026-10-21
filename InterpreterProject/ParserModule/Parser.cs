@@ -1,4 +1,5 @@
 ﻿using InterpreterProject.ScannerModule;
+using System.Drawing;
 
 namespace InterpreterProject.ParserModule
 {
@@ -28,8 +29,34 @@ namespace InterpreterProject.ParserModule
 
         private Expr Expression()
         {
-            return Equality();
+            return Comma();
         }
+
+        private Expr Comma()
+        {
+            Expr expr = Conditional();
+            while (Match(TokenType.COMMA))
+            {
+                Token op = Previous();
+                Expr right = Conditional();
+                expr = new Expr.Binary(expr, op, right);
+            }
+            return expr;
+        }
+
+        private Expr Conditional()
+        {
+            Expr expr = Equality();
+            if (Match(TokenType.QUESTION))
+            {
+                Expr thenBranch = Expression();
+                Consume(TokenType.COLON, "Expect ':' after then branch of conditional expression.");
+                Expr elseBranch = Conditional();
+                expr = new Expr.Conditional(expr, thenBranch, elseBranch);
+            }
+            return expr;
+        }
+
 
         private Expr Equality()
         {

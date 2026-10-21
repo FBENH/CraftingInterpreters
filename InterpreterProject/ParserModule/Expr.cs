@@ -5,7 +5,6 @@ namespace InterpreterProject.ParserModule;
 public abstract class Expr {
 
     public abstract T Accept<T>(IVisitor<T> visitor);
-    public abstract T Accept<T>(IRpnVisitor<T> visitor);
 
     public class Binary : Expr
     {
@@ -25,10 +24,6 @@ public abstract class Expr {
             return visitor.Visit(this);
         }
 
-        public override T Accept<T>(IRpnVisitor<T> visitor)
-        {
-            return visitor.Visit(this);
-        }
     }
 
     public class Grouping : Expr
@@ -41,11 +36,6 @@ public abstract class Expr {
         public Expr Expression {get;}
 
         public override T Accept<T>(IVisitor<T> visitor)
-        {
-            return visitor.Visit(this);
-        }
-
-        public override T Accept<T>(IRpnVisitor<T> visitor)
         {
             return visitor.Visit(this);
         }
@@ -65,10 +55,6 @@ public abstract class Expr {
             return visitor.Visit(this);
         }
 
-        public override T Accept<T>(IRpnVisitor<T> visitor)
-        {
-            return visitor.Visit(this);
-        }
     }
 
     public class Unary : Expr
@@ -87,10 +73,22 @@ public abstract class Expr {
             return visitor.Visit(this);
         }
 
-        public override T Accept<T>(IRpnVisitor<T> visitor)
+    }
+
+    public class Conditional : Expr
+    {
+        public Conditional(Expr condition, Expr thenBranch, Expr elseBranch)
         {
-            return visitor.Visit(this);
+            Condition = condition;
+            ThenBranch = thenBranch;
+            ElseBranch = elseBranch;
         }
+
+        public Expr Condition { get; }
+        public Expr ThenBranch { get; }
+        public Expr ElseBranch { get; }
+
+        public override T Accept<T>(IVisitor<T> visitor) => visitor.Visit(this);
     }
 
 }

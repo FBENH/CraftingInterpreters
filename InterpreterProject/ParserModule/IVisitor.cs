@@ -8,5 +8,6 @@ namespace InterpreterProject.ParserModule
         public T Visit(Binary expr);
         public T Visit(Grouping expr);
         public T Visit(Literal expr);
+        public T Visit(Conditional expr);
     }
 }

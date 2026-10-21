@@ -29,7 +29,12 @@ namespace InterpreterProject.ParserModule
         public string Visit(Expr.Unary expr)
         {
             return Parenthesize(expr.Opertor.Lexeme, [expr.Right]);
-        }    
+        }
+
+        public string Visit(Expr.Conditional expr)
+        {
+            return Parenthesize("?:", [expr.Condition, expr.ThenBranch, expr.ElseBranch]);
+        }
 
         private string Parenthesize(string name, Expr[] exprs)
         {
