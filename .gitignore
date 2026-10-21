@@ -1,0 +1,25 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/InterpreterProject/CopilotIndices/18.10.1207.43936
+/.vs/InterpreterProject.slnx/v18/.suo
+/.vs/InterpreterProject.slnx/v18/DocumentLayout.backup.json
+/.vs/InterpreterProject.slnx/v18/DocumentLayout.json
+/.vs/InterpreterProject.slnx/FileContentIndex/114cd0b7-4a3a-46ae-b00c-3736f83d9748.vsidx
+/.vs/InterpreterProject.slnx/FileContentIndex/236be3f0-ff59-40d4-a8bb-2a5a8d57a81d.vsidx
+/.vs/InterpreterProject.slnx/FileContentIndex/5c25d4ff-4ee5-47d3-a8ae-12cccf64ddb9.vsidx
+/.vs/InterpreterProject.slnx/FileContentIndex/606cff02-efa5-45c8-98ad-d408a886aede.vsidx
+/.vs/InterpreterProject.slnx/FileContentIndex/aeb9e63e-ae71-4e3a-b9bf-01d51c3de35f.vsidx
+/.vs/InterpreterProject.slnx/FileContentIndex/f28b3b4b-4771-4e86-bff2-60580f9c976d.vsidx
+/InterpreterProject/bin/Debug/net10.0/InterpreterProject.dll
+/InterpreterProject/bin/Debug/net10.0/InterpreterProject.exe
+/InterpreterProject/bin/Debug/net10.0/InterpreterProject.pdb
+/InterpreterProject/obj/Debug/net10.0/ref/InterpreterProject.dll
+/InterpreterProject/obj/Debug/net10.0/refint/InterpreterProject.dll
+/InterpreterProject/obj/Debug/net10.0/apphost.exe
+/InterpreterProject/obj/Debug/net10.0/InterpreterProject.AssemblyInfo.cs
+/InterpreterProject/obj/Debug/net10.0/InterpreterProject.AssemblyInfoInputs.cache
+/InterpreterProject/obj/Debug/net10.0/InterpreterProject.dll
+/InterpreterProject/obj/Debug/net10.0/InterpreterProject.pdb
+/InterpreterProject/bin/Debug/net10.0/test.lox
