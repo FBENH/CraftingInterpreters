@@ -1,0 +1,14 @@
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\bin\Debug\net10.0\GenerateAst.exe
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\bin\Debug\net10.0\GenerateAst.deps.json
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\bin\Debug\net10.0\GenerateAst.runtimeconfig.json
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\bin\Debug\net10.0\GenerateAst.dll
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\bin\Debug\net10.0\GenerateAst.pdb
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\GenerateAst.GeneratedMSBuildEditorConfig.editorconfig
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\GenerateAst.AssemblyInfoInputs.cache
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\GenerateAst.AssemblyInfo.cs
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\GenerateAst.csproj.CoreCompileInputs.cache
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\GenerateAst.dll
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\refint\GenerateAst.dll
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\GenerateAst.pdb
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\GenerateAst.genruntimeconfig.cache
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\ref\GenerateAst.dll

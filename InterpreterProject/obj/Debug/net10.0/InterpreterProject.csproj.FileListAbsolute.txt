@@ -1,0 +1,16 @@
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\bin\Debug\net10.0\InterpreterProject.exe
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\bin\Debug\net10.0\InterpreterProject.deps.json
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\bin\Debug\net10.0\InterpreterProject.runtimeconfig.json
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\bin\Debug\net10.0\InterpreterProject.dll
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\bin\Debug\net10.0\InterpreterProject.pdb
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\InterpreterProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\InterpreterProject.AssemblyInfoInputs.cache
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\InterpreterProject.AssemblyInfo.cs
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\InterpreterProject.csproj.CoreCompileInputs.cache
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\InterpreterProject.dll
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\refint\InterpreterProject.dll
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\InterpreterProject.pdb
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\InterpreterProject.genruntimeconfig.cache
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\ref\InterpreterProject.dll
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\bin\Debug\net10.0\test.lox
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\Interpre.00D27E45.Up2Date

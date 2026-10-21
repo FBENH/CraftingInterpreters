@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="GenerateAst/GenerateAst.csproj" Id="5514eba2-81e1-4155-bb83-cc1ef04dd9a5" />
+  <Project Path="InterpreterProject/InterpreterProject.csproj" />
+</Solution>
