@@ -4,9 +4,12 @@ namespace InterpreterProject.ParserModule
 {
     public class AstPrinter : IVisitor<string>
     {
-        public string Print(Expr expr)
+        public string Print(Expr? expr)
         {
-            return expr.Accept(this);
+            if (expr != null)  
+                return expr.Accept(this);
+
+            return null!;
         }
 
         public string Visit(Expr.Binary expr)

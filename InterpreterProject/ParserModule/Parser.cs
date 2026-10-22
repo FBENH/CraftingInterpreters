@@ -187,6 +187,32 @@ namespace InterpreterProject.ParserModule
                 return new Expr.Grouping(expr);
             }
 
+            if (Match(TokenType.BANG_EQUAL, TokenType.EQUAL_EQUAL))
+            {
+                Error(Previous(), "Missing left-hand operand.");
+                Comparison();
+                return null!;
+            }
+            if (Match(TokenType.GREATER, TokenType.GREATER_EQUAL, TokenType.LESS, TokenType.LESS_EQUAL))
+            {
+                Error(Previous(), "Missing left-hand operand.");
+                Term();
+                return null!;
+            }
+            if (Match(TokenType.PLUS))
+            {
+                Error(Previous(), "Missing left-hand operand.");
+                Factor();
+                return null!;
+            }
+            if (Match(TokenType.SLASH, TokenType.STAR))
+            {
+                Error(Previous(), "Missing left-hand operand.");
+                Unary();
+                return null!;
+            }
+
+
             throw Error(Peek(), "Expect expression.");
         }
 

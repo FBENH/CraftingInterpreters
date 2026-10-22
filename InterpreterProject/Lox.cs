@@ -75,6 +75,7 @@ internal class Lox
     {
         string output = $"[line {line}] Error {where} : {message}";
         Console.Error.WriteLine(output);
+        hadError = true;
     }
 
     internal static void Error(Token token, string message)
