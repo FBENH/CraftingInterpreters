@@ -14,3 +14,4 @@ C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\n
 C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\ref\InterpreterProject.dll
 C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\bin\Debug\net10.0\test.lox
 C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\Interpre.00D27E45.Up2Date
+C:\Proyectos\CraftingCompilers\InterpreterProject\InterpreterProject\obj\Debug\net10.0\InterpreterProject.sourcelink.json

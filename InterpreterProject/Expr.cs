@@ -1,6 +1,6 @@
 ﻿using InterpreterProject.ScannerModule;
 
-namespace InterpreterProject.ParserModule;
+namespace InterpreterProject;
 
 public abstract class Expr {
 

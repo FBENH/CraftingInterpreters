@@ -1,6 +1,6 @@
-﻿using static InterpreterProject.ParserModule.Expr;
+﻿using static InterpreterProject.Expr;
 
-namespace InterpreterProject.ParserModule
+namespace InterpreterProject
 {
     public interface IVisitor<T>
     {

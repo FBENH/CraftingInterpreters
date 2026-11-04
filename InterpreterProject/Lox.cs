@@ -1,11 +1,14 @@
-﻿using InterpreterProject.ParserModule;
+﻿using InterpreterProject;
+using InterpreterProject.InterpreterModule;
+using InterpreterProject.ParserModule;
 using InterpreterProject.ScannerModule;
 using System.Text;
-using static InterpreterProject.ParserModule.Expr;
 
-internal class Lox
+public class Lox
 {
     static bool hadError = false;
+    static bool hadRuntimeError = false;
+    private static readonly Interpreter interpreter = new Interpreter();
 
     private static void Main(string[] args)
     {
@@ -38,7 +41,9 @@ internal class Lox
 
     private static void RunFile(string path)
     {
-        if (hadError) return;
+        if (hadError) Environment.Exit(65);
+        if (hadRuntimeError) Environment.Exit(70);
+
         byte[] bytes = File.ReadAllBytes(path);
         Run(Encoding.Default.GetString(bytes));
     }
@@ -53,17 +58,7 @@ internal class Lox
         // Stop if there was a syntax error
         if (hadError) return;
 
-        // for now just print the tokens
-        foreach (Token token in tokens)
-        {
-            Console.WriteLine(token);
-        }
-
-        foreach(Token token in tokens)
-        {
-            Console.WriteLine(new AstPrinter().Print(expression));
-
-        }
+        interpreter.Interpret(expression);
     }
 
     public static void Error(int line, string message)
@@ -88,5 +83,11 @@ internal class Lox
         {
             Report(token.Line, " at '" + token.Lexeme + "'", message);
         }
+    }
+
+    public static void RunTimeError(RunTimeError error)
+    {
+        Console.WriteLine(error.Message + $"\n[line {error.Token.Line}]");
+        hadRuntimeError = true;
     }
 }

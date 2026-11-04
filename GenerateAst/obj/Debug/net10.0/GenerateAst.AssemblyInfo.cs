@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GenerateAst")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+85f42693fa8e17024986692e4ad4308d3a075a79")]
 [assembly: System.Reflection.AssemblyProductAttribute("GenerateAst")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GenerateAst")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

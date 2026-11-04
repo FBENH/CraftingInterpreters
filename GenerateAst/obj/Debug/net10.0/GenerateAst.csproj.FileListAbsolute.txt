@@ -12,3 +12,5 @@ C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\
 C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\GenerateAst.pdb
 C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\GenerateAst.genruntimeconfig.cache
 C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\ref\GenerateAst.dll
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\GenerateAst.sourcelink.json
+C:\Proyectos\CraftingCompilers\InterpreterProject\GenerateAst\obj\Debug\net10.0\Generate.5220C0AB.Up2Date
