@@ -103,6 +103,14 @@ namespace InterpreterProject.InterpreterModule
                     {
                         return (string)left + (string)right;
                     }
+                    if (left is string leftText && right is double rightNumber)
+                    {
+                        return $"{leftText + rightNumber}";
+                    }
+                    if (left is double leftNumber && right is string rightText)
+                    {
+                        return $"{leftNumber + rightText}";
+                    }
                     throw new RunTimeError(expr.Opertor, "Operands must be two numbers or two strings");             
                 case TokenType.SLASH:
                     CheckNumberOperands(expr.Opertor, left, right);
