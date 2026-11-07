@@ -114,6 +114,7 @@ namespace InterpreterProject.InterpreterModule
                     throw new RunTimeError(expr.Opertor, "Operands must be two numbers or two strings");             
                 case TokenType.SLASH:
                     CheckNumberOperands(expr.Opertor, left, right);
+                    CheckZeroDivider(expr.Opertor, (double)right);
                     return (double)left / (double)right;
                 case TokenType.STAR:
                     CheckNumberOperands(expr.Opertor, left, right);
@@ -122,6 +123,14 @@ namespace InterpreterProject.InterpreterModule
 
             // Unreachable.
             return null;
+        }
+
+        private void CheckZeroDivider(Token token,double right)
+        {
+            if (right == 0)
+            {
+                throw new RunTimeError(token ,"Divider cannot be 0");
+            }
         }
 
         private void CheckNumberOperands(Token opertor, object left, object right)

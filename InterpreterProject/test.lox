@@ -26,4 +26,4 @@ dog.BePetted();
 print clock();
 
  */
-"hola " + 3;
+3 / 0;
