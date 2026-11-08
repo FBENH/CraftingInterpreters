@@ -54,7 +54,7 @@ namespace InterpreterProject.InterpreterModule
 
         private void CheckNumberOperand(Token opertor, object right)
         {
-            if (opertor is double) return;
+            if (right is double) return;
             throw new RunTimeError(opertor, "Operand must be a number.");
         }
 
