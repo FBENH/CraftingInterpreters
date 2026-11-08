@@ -2,7 +2,7 @@
 
 namespace InterpreterProject.ParserModule
 {
-    public class AstPrinter : IVisitor<string>
+    public class AstPrinter : IExprVisitor<string>
     {
         public string Print(Expr? expr)
         {

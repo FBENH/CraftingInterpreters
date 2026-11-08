@@ -1,10 +1,11 @@
-﻿using InterpreterProject.ScannerModule;
+﻿// Generado por GenerateAst. No editar a mano: modificar GenerateAst/Program.cs y volver a ejecutarlo.
+using InterpreterProject.ScannerModule;
 
 namespace InterpreterProject;
 
-public abstract class Expr {
-
-    public abstract T Accept<T>(IVisitor<T> visitor);
+public abstract class Expr
+{
+    public abstract T Accept<T>(IExprVisitor<T> visitor);
 
     public class Binary : Expr
     {
@@ -15,64 +16,11 @@ public abstract class Expr {
             Right = right;
         }
 
-        public Expr Left {get;}
-        public Token Opertor {get;}
-        public Expr Right {get;}
+        public Expr Left { get; }
+        public Token Opertor { get; }
+        public Expr Right { get; }
 
-        public override T Accept<T>(IVisitor<T> visitor)
-        {
-            return visitor.Visit(this);
-        }
-
-    }
-
-    public class Grouping : Expr
-    {
-        public Grouping(Expr expression)
-        {
-            Expression = expression;
-        }
-
-        public Expr Expression {get;}
-
-        public override T Accept<T>(IVisitor<T> visitor)
-        {
-            return visitor.Visit(this);
-        }
-    }
-
-    public class Literal : Expr
-    {
-        public Literal(Object value)
-        {
-            Value = value;
-        }
-
-        public Object Value {get;}
-
-        public override T Accept<T>(IVisitor<T> visitor)
-        {
-            return visitor.Visit(this);
-        }
-
-    }
-
-    public class Unary : Expr
-    {
-        public Unary(Token opertor, Expr right)
-        {
-            Opertor = opertor;
-            Right = right;
-        }
-
-        public Token Opertor {get;}
-        public Expr Right {get;}
-
-        public override T Accept<T>(IVisitor<T> visitor)
-        {
-            return visitor.Visit(this);
-        }
-
+        public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
     }
 
     public class Conditional : Expr
@@ -88,7 +36,53 @@ public abstract class Expr {
         public Expr ThenBranch { get; }
         public Expr ElseBranch { get; }
 
-        public override T Accept<T>(IVisitor<T> visitor) => visitor.Visit(this);
+        public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
     }
 
+    public class Grouping : Expr
+    {
+        public Grouping(Expr expression)
+        {
+            Expression = expression;
+        }
+
+        public Expr Expression { get; }
+
+        public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
+    }
+
+    public class Literal : Expr
+    {
+        public Literal(object? value)
+        {
+            Value = value;
+        }
+
+        public object? Value { get; }
+
+        public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
+    }
+
+    public class Unary : Expr
+    {
+        public Unary(Token opertor, Expr right)
+        {
+            Opertor = opertor;
+            Right = right;
+        }
+
+        public Token Opertor { get; }
+        public Expr Right { get; }
+
+        public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
+    }
+}
+
+public interface IExprVisitor<T>
+{
+    T Visit(Expr.Binary binary);
+    T Visit(Expr.Conditional conditional);
+    T Visit(Expr.Grouping grouping);
+    T Visit(Expr.Literal literal);
+    T Visit(Expr.Unary unary);
 }

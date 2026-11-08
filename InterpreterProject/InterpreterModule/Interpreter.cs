@@ -2,7 +2,7 @@
 
 namespace InterpreterProject.InterpreterModule
 {
-    public class Interpreter : IVisitor<object?>
+    public class Interpreter : IExprVisitor<object?>
     {
         public void Interpret(Expr expression)
         {
