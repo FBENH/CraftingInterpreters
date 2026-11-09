@@ -41,8 +41,8 @@ public class Lox
 
     private static void RunFile(string path)
     {
-        if (hadError) Environment.Exit(65);
-        if (hadRuntimeError) Environment.Exit(70);
+        if (hadError) System.Environment.Exit(65);
+        if (hadRuntimeError) System.Environment.Exit(70);
 
         byte[] bytes = File.ReadAllBytes(path);
         Run(Encoding.Default.GetString(bytes));
@@ -53,12 +53,12 @@ public class Lox
         Scanner scanner = new Scanner(sourceCode);
         List<Token> tokens = scanner.ScanTokens();
         Parser parser = new Parser(tokens);
-        Expr? expression = parser.Parse();
+        List<Stmt>? statements = parser.Parse();
 
         // Stop if there was a syntax error
         if (hadError) return;
 
-        interpreter.Interpret(expression);
+        interpreter.Interpret(statements);
     }
 
     public static void Error(int line, string message)

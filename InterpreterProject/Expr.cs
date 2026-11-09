@@ -76,6 +76,18 @@ public abstract class Expr
 
         public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
     }
+
+    public class Variable : Expr
+    {
+        public Token Name;
+
+        public Variable(Token name)
+        {
+            this.Name = name;
+        }
+
+        public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
+    }
 }
 
 public interface IExprVisitor<T>
@@ -85,4 +97,5 @@ public interface IExprVisitor<T>
     T Visit(Expr.Grouping grouping);
     T Visit(Expr.Literal literal);
     T Visit(Expr.Unary unary);
+    T Visit(Expr.Variable unary);
 }

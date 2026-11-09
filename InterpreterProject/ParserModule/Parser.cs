@@ -1,4 +1,5 @@
 ﻿using InterpreterProject.ScannerModule;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace InterpreterProject.ParserModule
@@ -14,17 +15,73 @@ namespace InterpreterProject.ParserModule
             this.tokens = tokens;
         }
 
-        public Expr? Parse()
+        public List<Stmt?>? Parse()
         {
             try
             {
-                return Expression();
+                List<Stmt?> statements = new();
+                while (!IsAtEnd())
+                {
+                    statements.Add(Declaration());
+                }
+
+                return statements;
             }
             catch (ParseError)
             {
 
                 return null;
             }
+        }
+
+        private Stmt? Declaration()
+        {
+            try
+            {
+                if (Match(TokenType.VAR)) return VarDeclaration();
+
+                return Statement();
+            }
+            catch (ParseError)
+            {
+                Synchronize();
+                return null;
+            }
+        }
+
+        private Stmt VarDeclaration()
+        {
+            Token name = Consume(TokenType.IDENTIFIER, "Expect variable name.");
+
+            Expr? initializer = null;
+            if (Match(TokenType.EQUAL))
+            {
+                initializer = Expression();
+            }
+
+            Consume(TokenType.SEMICOLON, "Expect ';' after variable declaration.");
+            return new Stmt.Var(name, initializer);
+        }
+
+        private Stmt Statement()
+        {
+            if (Match(TokenType.PRINT)) return PrintStatement();
+
+            return ExpressionStatement();
+        }
+
+        private Stmt ExpressionStatement()
+        {
+            Expr expr = Expression();
+            Consume(TokenType.SEMICOLON, "Expect ';' after expression.");
+            return new Stmt.Expression(expr);
+        }
+
+        private Stmt PrintStatement()
+        {
+            Expr value = Expression();
+            Consume(TokenType.SEMICOLON, "Expect ';' after value.");
+            return new Stmt.Print(value);
         }
 
         private Expr Expression()
@@ -180,6 +237,11 @@ namespace InterpreterProject.ParserModule
                 return new Expr.Literal(Previous().Literal);
             }
 
+            if (Match(TokenType.IDENTIFIER))
+            {
+                return new Expr.Variable(Previous());
+            }
+
             if (Match(TokenType.LEFT_PAREN))
             {
                 Expr expr = Expression();
@@ -229,7 +291,7 @@ namespace InterpreterProject.ParserModule
             return new ParseError();
         }
 
-        private void Syncronize()
+        private void Synchronize()
         {
             Advance();
 

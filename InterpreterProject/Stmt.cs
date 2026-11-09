@@ -30,10 +30,25 @@ public abstract class Stmt
 
         public override T Accept<T>(IStmtVisitor<T> visitor) => visitor.Visit(this);
     }
+
+    public class Var : Stmt
+    {
+        public Expr? Initializer { get;  }
+        public Token Name { get; }
+
+        public Var(Token name, Expr? initializer)
+        {
+            Initializer = initializer;
+            this.Name = name;
+        }
+
+        public override T Accept<T>(IStmtVisitor<T> visitor) => visitor.Visit(this);       
+    }
 }
 
 public interface IStmtVisitor<T>
 {
     T Visit(Stmt.Expression expression);
     T Visit(Stmt.Print print);
+    T Visit(Stmt.Var print);
 }

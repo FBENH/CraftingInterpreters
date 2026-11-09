@@ -39,6 +39,12 @@ namespace InterpreterProject.ParserModule
             return Parenthesize("?:", [expr.Condition, expr.ThenBranch, expr.ElseBranch]);
         }
 
+        public string Visit(Expr.Variable expr)
+        {
+
+            return expr.Name.ToString()!;
+        }
+
         private string Parenthesize(string name, Expr[] exprs)
         {
             StringBuilder builder = new();

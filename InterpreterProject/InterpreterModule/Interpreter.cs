@@ -2,19 +2,28 @@
 
 namespace InterpreterProject.InterpreterModule
 {
-    public class Interpreter : IExprVisitor<object?>
+    public class Interpreter : IExprVisitor<object?>, IStmtVisitor<object?>
     {
-        public void Interpret(Expr expression)
+        private Environment environment = new();
+
+        public void Interpret(List<Stmt> statements)
         {
             try
             {
-                object value = Evaluate(expression);
-                Console.WriteLine(Stringify(value));
+                foreach (Stmt stmt in statements)
+                {
+                    Execute(stmt);
+                }
             }
             catch (RunTimeError error)
             {
                 Lox.RunTimeError(error);
             }
+        }
+
+        private void Execute(Stmt stmt)
+        {
+            stmt.Accept(this);
         }
 
         private string Stringify(object value)
@@ -65,7 +74,7 @@ namespace InterpreterProject.InterpreterModule
             if (obj is bool) return (bool)obj;
 
             return true;
-        }
+        }        
 
         public object? Visit(Expr.Binary expr)
         {
@@ -163,9 +172,41 @@ namespace InterpreterProject.InterpreterModule
             throw new NotImplementedException();
         }
 
+
         private object Evaluate(Expr expr)
         {            
             return expr.Accept(this);            
+        }
+
+        public object? Visit(Stmt.Expression stmt)
+        {
+            Evaluate(stmt.Expr);
+            return null;
+        }
+
+        public object? Visit(Stmt.Print stmt)
+        {
+            object value = Evaluate(stmt.Expr);
+            Console.WriteLine(Stringify(value));
+            return null;
+        }
+
+        public object? Visit(Expr.Variable expr)
+        {
+            return environment.Get(expr.Name);
+        }
+
+        public object? Visit(Stmt.Var stmt)
+        {
+            object? value = null;
+
+            if (stmt.Initializer != null)
+            {
+                value = Evaluate(stmt.Initializer);
+            }
+
+            environment.Define(stmt.Name.Lexeme, value);
+            return null;
         }
     }
 }
