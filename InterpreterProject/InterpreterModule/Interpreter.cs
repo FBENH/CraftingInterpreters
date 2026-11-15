@@ -270,9 +270,14 @@ namespace InterpreterProject.InterpreterModule
             }
         }
 
-        public object? Visit(Stmt.While @while)
+        public object? Visit(Stmt.While stmt)
         {
-            throw new NotImplementedException();
+            while (IsTruthy(Evaluate(stmt.Condition)))
+            {
+                Execute(stmt.Body);
+            }
+
+            return null;
         }
     }
 }
