@@ -21,17 +21,21 @@ string outputDir = args[0];
 // Cada línea: "NombreDeClase : Tipo campo, Tipo campo, ..."
 DefineAst(outputDir, "Expr",
 [
+    "Assign      : Token name, Expr value",
     "Binary      : Expr left, Token opertor, Expr right",
     "Conditional : Expr condition, Expr thenBranch, Expr elseBranch",
     "Grouping    : Expr expression",
     "Literal     : object? value",
     "Unary       : Token opertor, Expr right",
+    "Variable    : Token name",
 ]);
 
 DefineAst(outputDir, "Stmt",
 [
+    "Block      : List<Stmt> statements",
     "Expression : Expr expr",
     "Print      : Expr expr",
+    "Var        : Token name, Expr? initializer",
 ]);
 
 static void DefineAst(string outputDir, string baseName, List<string> types)

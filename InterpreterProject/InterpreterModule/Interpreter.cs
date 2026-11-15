@@ -208,5 +208,15 @@ namespace InterpreterProject.InterpreterModule
             environment.Define(stmt.Name.Lexeme, value);
             return null;
         }
+
+        public object? Visit(Expr.Assign expr)
+        {
+            throw new NotImplementedException("cap. 8: implementar Visit(Expr.Assign)");
+        }
+
+        public object? Visit(Stmt.Block stmt)
+        {
+            throw new NotImplementedException("cap. 8: implementar Visit(Stmt.Block)");
+        }
     }
 }

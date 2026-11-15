@@ -7,6 +7,18 @@ public abstract class Stmt
 {
     public abstract T Accept<T>(IStmtVisitor<T> visitor);
 
+    public class Block : Stmt
+    {
+        public Block(List<Stmt> statements)
+        {
+            Statements = statements;
+        }
+
+        public List<Stmt> Statements { get; }
+
+        public override T Accept<T>(IStmtVisitor<T> visitor) => visitor.Visit(this);
+    }
+
     public class Expression : Stmt
     {
         public Expression(Expr expr)
@@ -33,22 +45,23 @@ public abstract class Stmt
 
     public class Var : Stmt
     {
-        public Expr? Initializer { get;  }
-        public Token Name { get; }
-
         public Var(Token name, Expr? initializer)
         {
+            Name = name;
             Initializer = initializer;
-            this.Name = name;
         }
 
-        public override T Accept<T>(IStmtVisitor<T> visitor) => visitor.Visit(this);       
+        public Token Name { get; }
+        public Expr? Initializer { get; }
+
+        public override T Accept<T>(IStmtVisitor<T> visitor) => visitor.Visit(this);
     }
 }
 
 public interface IStmtVisitor<T>
 {
+    T Visit(Stmt.Block block);
     T Visit(Stmt.Expression expression);
     T Visit(Stmt.Print print);
-    T Visit(Stmt.Var print);
+    T Visit(Stmt.Var var);
 }

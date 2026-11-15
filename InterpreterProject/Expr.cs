@@ -7,6 +7,20 @@ public abstract class Expr
 {
     public abstract T Accept<T>(IExprVisitor<T> visitor);
 
+    public class Assign : Expr
+    {
+        public Assign(Token name, Expr value)
+        {
+            Name = name;
+            Value = value;
+        }
+
+        public Token Name { get; }
+        public Expr Value { get; }
+
+        public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
+    }
+
     public class Binary : Expr
     {
         public Binary(Expr left, Token opertor, Expr right)
@@ -79,12 +93,12 @@ public abstract class Expr
 
     public class Variable : Expr
     {
-        public Token Name;
-
         public Variable(Token name)
         {
-            this.Name = name;
+            Name = name;
         }
+
+        public Token Name { get; }
 
         public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
     }
@@ -92,10 +106,11 @@ public abstract class Expr
 
 public interface IExprVisitor<T>
 {
+    T Visit(Expr.Assign assign);
     T Visit(Expr.Binary binary);
     T Visit(Expr.Conditional conditional);
     T Visit(Expr.Grouping grouping);
     T Visit(Expr.Literal literal);
     T Visit(Expr.Unary unary);
-    T Visit(Expr.Variable unary);
+    T Visit(Expr.Variable variable);
 }

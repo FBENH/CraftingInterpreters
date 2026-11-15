@@ -45,6 +45,11 @@ namespace InterpreterProject.ParserModule
             return expr.Name.ToString()!;
         }
 
+        public string Visit(Expr.Assign expr)
+        {
+            throw new NotImplementedException("cap. 8: implementar Visit(Expr.Assign)");
+        }
+
         private string Parenthesize(string name, Expr[] exprs)
         {
             StringBuilder builder = new();
