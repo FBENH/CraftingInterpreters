@@ -26,6 +26,7 @@ DefineAst(outputDir, "Expr",
     "Conditional : Expr condition, Expr thenBranch, Expr elseBranch",
     "Grouping    : Expr expression",
     "Literal     : object? value",
+    "Logical     : Expr left, Token opertor, Expr right",
     "Unary       : Token opertor, Expr right",
     "Variable    : Token name",
 ]);
