@@ -91,13 +91,31 @@ namespace InterpreterProject.ParserModule
 
         private Expr Comma()
         {
-            Expr expr = Conditional();
+            Expr expr = Assignment();
             while (Match(TokenType.COMMA))
             {
                 Token op = Previous();
-                Expr right = Conditional();
+                Expr right = Assignment();
                 expr = new Expr.Binary(expr, op, right);
             }
+            return expr;
+        }
+
+        private Expr Assignment()
+        {
+            Expr expr = Conditional();
+
+            if (Match(TokenType.EQUAL))
+            {
+                Token equals = Previous();
+                Expr value = Assignment();
+
+                if (expr is Expr.Variable variable)
+                    return new Expr.Assign(variable.Name, value);
+
+                Error(equals, "Invalid assignment target.");
+            }
+
             return expr;
         }
 

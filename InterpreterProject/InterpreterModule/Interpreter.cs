@@ -211,7 +211,9 @@ namespace InterpreterProject.InterpreterModule
 
         public object? Visit(Expr.Assign expr)
         {
-            throw new NotImplementedException("cap. 8: implementar Visit(Expr.Assign)");
+            object? value = Evaluate(expr.Value);
+            environment.Assign(expr.Name, value);
+            return value;
         }
 
         public object? Visit(Stmt.Block stmt)
