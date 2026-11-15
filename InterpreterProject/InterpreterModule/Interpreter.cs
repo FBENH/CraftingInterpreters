@@ -222,6 +222,36 @@ namespace InterpreterProject.InterpreterModule
             return null;
         }
 
+        public object ? Visit(Stmt.If stmt)
+        {
+            if (IsTruthy(Evaluate(stmt.Condition)))
+            {
+                Execute(stmt.ThenBranch);
+            }
+            else if (stmt.ElseBranch != null)
+            {
+                Execute(stmt.ElseBranch);
+            }
+
+            return null;
+        }
+
+        public object? Visit(Expr.Logical expr)
+        {
+            object? left = Evaluate(expr.Left);
+
+            if (expr.Opertor.Type == TokenType.OR)
+            {
+                if (IsTruthy(left)) return left;
+            }
+            else
+            {
+                if (!IsTruthy(left)) return left;
+            }
+
+            return Evaluate(expr.Right);
+        }
+
         private void ExecuteBlock(List<Stmt> statements, Environment environment)
         {
             Environment previous = this.environment;

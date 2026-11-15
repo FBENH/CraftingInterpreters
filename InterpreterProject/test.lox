@@ -26,8 +26,5 @@ dog.BePetted();
 print clock();
 
  */
-var a = 1;
-{
-var a = a + 2;
-}
-print a;
+print "hi" or 2; // "hi".
+print nil or "yes"; // "yes"

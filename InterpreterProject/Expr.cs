@@ -77,6 +77,22 @@ public abstract class Expr
         public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
     }
 
+    public class Logical : Expr
+    {
+        public Logical(Expr left, Token opertor, Expr right)
+        {
+            Left = left;
+            Opertor = opertor;
+            Right = right;
+        }
+
+        public Expr Left { get; }
+        public Token Opertor { get; }
+        public Expr Right { get; }
+
+        public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
+    }
+
     public class Unary : Expr
     {
         public Unary(Token opertor, Expr right)
@@ -111,6 +127,7 @@ public interface IExprVisitor<T>
     T Visit(Expr.Conditional conditional);
     T Visit(Expr.Grouping grouping);
     T Visit(Expr.Literal literal);
+    T Visit(Expr.Logical logical);
     T Visit(Expr.Unary unary);
     T Visit(Expr.Variable variable);
 }

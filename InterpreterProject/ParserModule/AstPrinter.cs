@@ -50,6 +50,11 @@ namespace InterpreterProject.ParserModule
             throw new NotImplementedException("cap. 8: implementar Visit(Expr.Assign)");
         }
 
+        public string Visit(Expr.Logical logical)
+        {
+            throw new NotImplementedException();
+        }
+
         private string Parenthesize(string name, Expr[] exprs)
         {
             StringBuilder builder = new();
