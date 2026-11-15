@@ -269,5 +269,10 @@ namespace InterpreterProject.InterpreterModule
                 this.environment = previous;
             }
         }
+
+        public object? Visit(Stmt.While @while)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

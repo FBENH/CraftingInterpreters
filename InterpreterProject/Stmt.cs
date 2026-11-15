@@ -72,6 +72,20 @@ public abstract class Stmt
 
         public override T Accept<T>(IStmtVisitor<T> visitor) => visitor.Visit(this);
     }
+
+    public class While : Stmt
+    {
+        public While(Expr condition, Stmt body)
+        {
+            Condition = condition;
+            Body = body;
+        }
+
+        public Expr Condition { get; }
+        public Stmt Body { get; }
+
+        public override T Accept<T>(IStmtVisitor<T> visitor) => visitor.Visit(this);
+    }
 }
 
 public interface IStmtVisitor<T>
@@ -81,4 +95,5 @@ public interface IStmtVisitor<T>
     T Visit(Stmt.If @if);
     T Visit(Stmt.Print print);
     T Visit(Stmt.Var var);
+    T Visit(Stmt.While @while);
 }
