@@ -8,7 +8,18 @@ namespace InterpreterProject
 {
     public class Environment
     {
+        private readonly Environment? enclosing;
         private readonly Dictionary<string, object> values = new();
+
+        public Environment()
+        {
+            enclosing = null;
+        }
+
+        public Environment(Environment enclosing)
+        {
+            this.enclosing = enclosing;
+        }
 
         public void Define(string name, object value)
         {
@@ -22,6 +33,8 @@ namespace InterpreterProject
                 return values[name.Lexeme];
             }
 
+            if (enclosing != null) return enclosing.Get(name);
+
             throw new RunTimeError(name, $"Undefined variable {name.Lexeme}.");
         }
 
@@ -30,6 +43,12 @@ namespace InterpreterProject
             if (values.ContainsKey(name.Lexeme))
             {
                 values[name.Lexeme] = value;
+                return;
+            }
+
+            if (enclosing != null)
+            {
+                enclosing.Assign(name, value);
                 return;
             }
 

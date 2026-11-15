@@ -1,6 +1,7 @@
 ﻿using InterpreterProject.ScannerModule;
 using System.ComponentModel;
 using System.Drawing;
+using System.Net.Http.Headers;
 
 namespace InterpreterProject.ParserModule
 {
@@ -66,8 +67,22 @@ namespace InterpreterProject.ParserModule
         private Stmt Statement()
         {
             if (Match(TokenType.PRINT)) return PrintStatement();
+            if (Match(TokenType.LEFT_BRACE)) return new Stmt.Block(Block());
 
             return ExpressionStatement();
+        }
+
+        private List<Stmt?> Block()
+        {
+            List<Stmt?> statements = new();
+
+            while (!Check(TokenType.RIGHT_BRACE) && !IsAtEnd())
+            {
+                statements.Add(Declaration());
+            }
+
+            Consume(TokenType.RIGHT_BRACE, "Expect '}' after block.");
+            return statements;
         }
 
         private Stmt ExpressionStatement()

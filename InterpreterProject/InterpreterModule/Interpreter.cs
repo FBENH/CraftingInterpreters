@@ -218,7 +218,26 @@ namespace InterpreterProject.InterpreterModule
 
         public object? Visit(Stmt.Block stmt)
         {
-            throw new NotImplementedException("cap. 8: implementar Visit(Stmt.Block)");
+            ExecuteBlock(stmt.Statements, new Environment(environment));
+            return null;
+        }
+
+        private void ExecuteBlock(List<Stmt> statements, Environment environment)
+        {
+            Environment previous = this.environment;
+            try
+            {
+                this.environment = environment;
+
+                foreach (var statement in statements)
+                {
+                    Execute(statement);
+                }
+            }
+            finally
+            {
+                this.environment = previous;
+            }
         }
     }
 }
