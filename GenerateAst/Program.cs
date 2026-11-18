@@ -23,6 +23,7 @@ DefineAst(outputDir, "Expr",
 [
     "Assign      : Token name, Expr value",
     "Binary      : Expr left, Token opertor, Expr right",
+    "Call        : Expr callee, Token paren, List<Expr> arguments",
     "Conditional : Expr condition, Expr thenBranch, Expr elseBranch",
     "Grouping    : Expr expression",
     "Literal     : object? value",
