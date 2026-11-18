@@ -36,12 +36,12 @@ public abstract class Stmt
         public Function(Token name, List<Token> parameters, List<Stmt> body)
         {
             Name = name;
-            Params = parameters;
+            Parameters = parameters;
             Body = body;
         }
 
         public Token Name { get; }
-        public List<Token> Params { get; }
+        public List<Token> Parameters { get; }
         public List<Stmt> Body { get; }
 
         public override T Accept<T>(IStmtVisitor<T> visitor) => visitor.Visit(this);
@@ -71,6 +71,20 @@ public abstract class Stmt
         }
 
         public Expr Expr { get; }
+
+        public override T Accept<T>(IStmtVisitor<T> visitor) => visitor.Visit(this);
+    }
+
+    public class Return : Stmt
+    {
+        public Return(Token keyword, Expr value)
+        {
+            Keyword = keyword;
+            Value = value;
+        }
+
+        public Token Keyword { get; }
+        public Expr Value { get; }
 
         public override T Accept<T>(IStmtVisitor<T> visitor) => visitor.Visit(this);
     }
@@ -111,6 +125,7 @@ public interface IStmtVisitor<T>
     T Visit(Stmt.Function function);
     T Visit(Stmt.If @if);
     T Visit(Stmt.Print print);
+    T Visit(Stmt.Return @return);
     T Visit(Stmt.Var var);
     T Visit(Stmt.While @while);
 }

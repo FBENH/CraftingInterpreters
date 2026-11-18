@@ -16,19 +16,27 @@ namespace InterpreterProject
 
         public int Arity()
         {
-            return declaration.Params.Count;
+            return declaration.Parameters.Count;
         }
 
         public object? Call(Interpreter interpreter, List<object> arguments)
         {
             Environment environment = new Environment(interpreter.globals);
 
-            for (int i = 0; i < declaration.Params.Count; i++)
+            for (int i = 0; i < declaration.Parameters.Count; i++)
             {
-                environment.Define(declaration.Params[i].Lexeme, arguments[i]);
+                environment.Define(declaration.Parameters[i].Lexeme, arguments[i]);
             }
 
-            interpreter.ExecuteBlock(declaration.Body, environment);
+            try
+            {
+                interpreter.ExecuteBlock(declaration.Body, environment);
+
+            }
+            catch (Return returnValue)
+            {
+                return returnValue.value;                
+            }
             return null;
         }
 

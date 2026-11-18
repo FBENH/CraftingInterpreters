@@ -300,5 +300,13 @@ namespace InterpreterProject.InterpreterModule
 
             return null;
         }
+
+        public object? Visit(Stmt.Return stmt)
+        {
+            object? value = null;
+            if (stmt.Value != null) value = Evaluate(stmt.Value);
+
+            throw new Return(value);
+        }
     }
 }
