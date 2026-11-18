@@ -37,22 +37,6 @@ public abstract class Expr
         public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
     }
 
-    public class Conditional : Expr
-    {
-        public Conditional(Expr condition, Expr thenBranch, Expr elseBranch)
-        {
-            Condition = condition;
-            ThenBranch = thenBranch;
-            ElseBranch = elseBranch;
-        }
-
-        public Expr Condition { get; }
-        public Expr ThenBranch { get; }
-        public Expr ElseBranch { get; }
-
-        public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
-    }
-
     public class Call : Expr
     {
         public Call(Expr callee, Token paren, List<Expr> arguments)
@@ -65,6 +49,22 @@ public abstract class Expr
         public Expr Callee { get; }
         public Token Paren { get; }
         public List<Expr> Arguments { get; }
+
+        public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
+    }
+
+    public class Conditional : Expr
+    {
+        public Conditional(Expr condition, Expr thenBranch, Expr elseBranch)
+        {
+            Condition = condition;
+            ThenBranch = thenBranch;
+            ElseBranch = elseBranch;
+        }
+
+        public Expr Condition { get; }
+        public Expr ThenBranch { get; }
+        public Expr ElseBranch { get; }
 
         public override T Accept<T>(IExprVisitor<T> visitor) => visitor.Visit(this);
     }
@@ -140,8 +140,8 @@ public interface IExprVisitor<T>
 {
     T Visit(Expr.Assign assign);
     T Visit(Expr.Binary binary);
-    T Visit(Expr.Conditional conditional);
     T Visit(Expr.Call call);
+    T Visit(Expr.Conditional conditional);
     T Visit(Expr.Grouping grouping);
     T Visit(Expr.Literal literal);
     T Visit(Expr.Logical logical);

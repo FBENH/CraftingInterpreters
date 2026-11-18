@@ -36,6 +36,7 @@ DefineAst(outputDir, "Stmt",
 [
     "Block      : List<Stmt> statements",
     "Expression : Expr expr",
+    "Function   : Token name, List<Token> parameters," +" List<Stmt> body",
     "If         : Expr condition, Stmt thenBranch," + " Stmt elseBranch",
     "Print      : Expr expr",
     "Var        : Token name, Expr? initializer",

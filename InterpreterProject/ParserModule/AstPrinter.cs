@@ -55,6 +55,11 @@ namespace InterpreterProject.ParserModule
             throw new NotImplementedException();
         }
 
+        public string Visit(Expr.Call call)
+        {
+            throw new NotImplementedException();
+        }
+
         private string Parenthesize(string name, Expr[] exprs)
         {
             StringBuilder builder = new();
