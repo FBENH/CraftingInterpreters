@@ -71,12 +71,6 @@ namespace InterpreterProject.ScannerModule
                 case '}':
                     AddToken(TokenType.RIGHT_BRACE);
                     break;
-                case '?':
-                    AddToken(TokenType.QUESTION);
-                    break;
-                case ':':
-                    AddToken(TokenType.COLON);
-                    break;
                 case ',':
                     AddToken(TokenType.COMMA);
                     break;
@@ -114,32 +108,6 @@ namespace InterpreterProject.ScannerModule
                         {
                             Advance();
                         }                        
-                    }
-                    else if (Match('*'))
-                    {
-                        while (!IsAtEnd())
-                        {
-                            if (Peek() == '\n')
-                            {
-                                line++;
-                            }
-
-                            if (Peek() == '*' && PeekNext() == '/')
-                            {
-                                break;
-                            }
-
-                            Advance();
-                        }     
-                        
-                        if (IsAtEnd())
-                        {
-                            Lox.Error(line, "Unterminated comment");
-                            return;
-                        }
-
-                        // closing */
-                        current = current + 2;
                     }
                     else
                     {

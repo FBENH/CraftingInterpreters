@@ -1,10 +1,20 @@
 ﻿using InterpreterProject.ScannerModule;
+using System.Security.Cryptography.X509Certificates;
 
 namespace InterpreterProject.InterpreterModule
 {
     public class Interpreter : IExprVisitor<object?>, IStmtVisitor<object?>
     {
-        private Environment environment = new();
+        public readonly Environment globals;
+        public Environment environment;
+
+        public Interpreter()
+        {
+            globals = new Environment();
+            environment = globals;
+
+            globals.Define("clock", new ClockFunction());            
+        }
 
         public void Interpret(List<Stmt> statements)
         {
@@ -112,18 +122,9 @@ namespace InterpreterProject.InterpreterModule
                     {
                         return (string)left + (string)right;
                     }
-                    if (left is string leftText && right is double rightNumber)
-                    {
-                        return $"{leftText + rightNumber}";
-                    }
-                    if (left is double leftNumber && right is string rightText)
-                    {
-                        return $"{leftNumber + rightText}";
-                    }
                     throw new RunTimeError(expr.Opertor, "Operands must be two numbers or two strings");             
                 case TokenType.SLASH:
                     CheckNumberOperands(expr.Opertor, left, right);
-                    CheckZeroDivider(expr.Opertor, (double)right);
                     return (double)left / (double)right;
                 case TokenType.STAR:
                     CheckNumberOperands(expr.Opertor, left, right);
@@ -132,14 +133,6 @@ namespace InterpreterProject.InterpreterModule
 
             // Unreachable.
             return null;
-        }
-
-        private void CheckZeroDivider(Token token,double right)
-        {
-            if (right == 0)
-            {
-                throw new RunTimeError(token ,"Divider cannot be 0");
-            }
         }
 
         private void CheckNumberOperands(Token opertor, object left, object right)
@@ -165,11 +158,6 @@ namespace InterpreterProject.InterpreterModule
         public object? Visit(Expr.Literal expr)
         {
             return expr.Value;
-        }
-
-        public object? Visit(Expr.Conditional expr)
-        {
-            throw new NotImplementedException();
         }
 
 
@@ -252,7 +240,7 @@ namespace InterpreterProject.InterpreterModule
             return Evaluate(expr.Right);
         }
 
-        private void ExecuteBlock(List<Stmt> statements, Environment environment)
+        public void ExecuteBlock(List<Stmt> statements, Environment environment)
         {
             Environment previous = this.environment;
             try
@@ -276,6 +264,39 @@ namespace InterpreterProject.InterpreterModule
             {
                 Execute(stmt.Body);
             }
+
+            return null;
+        }
+
+        public object? Visit(Expr.Call expr)
+        {
+            object? callee = Evaluate(expr.Callee);
+
+            List<object> arguments = new();
+
+            foreach (Expr argument in expr.Arguments)
+            {
+                arguments.Add(Evaluate(argument));
+            }
+
+            if (!(callee is LoxCallable))
+            {
+                throw new RunTimeError(expr.Paren, "Can only call functions and classes.");
+            }
+
+            LoxCallable function = (LoxCallable)callee;
+            if (arguments.Count != function.Arity())
+            {
+                throw new RunTimeError(expr.Paren, $"Expected {function.Arity()} arguments but got {arguments.Count}.");
+            }
+
+            return function.Call(this, arguments);
+        }
+
+        public object? Visit(Stmt.Function stmt)
+        {
+            var function = new LoxFunction(stmt);
+            environment.Define(stmt.Name.Lexeme, function);
 
             return null;
         }

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Net.Http.Headers;
+using System.Reflection.Metadata.Ecma335;
 
 namespace InterpreterProject.ParserModule
 {
@@ -39,6 +40,7 @@ namespace InterpreterProject.ParserModule
         {
             try
             {
+                if (Match(TokenType.FUN)) return Function("function");
                 if (Match(TokenType.VAR)) return VarDeclaration();
 
                 return Statement();
@@ -48,6 +50,31 @@ namespace InterpreterProject.ParserModule
                 Synchronize();
                 return null;
             }
+        }
+
+        private Stmt.Function? Function(string kind)
+        {
+            Token name = Consume(TokenType.IDENTIFIER, $"Expect {kind} name.");
+            Consume(TokenType.LEFT_PAREN, $"Expect '(' after {kind} name.");
+            List<Token> parameters = new();
+            if (!Check(TokenType.RIGHT_PAREN))
+            {
+                do
+                {
+                    if (parameters.Count >= 255)
+                    {
+                        Error(Peek(), "CCan't have more than 255 parameters.");
+                    }
+
+                    parameters.Add(Consume(TokenType.IDENTIFIER, "Expect parameter name."));
+                } while (Match(TokenType.COMMA));
+            }
+
+            Consume(TokenType.RIGHT_PAREN, "Expect ')' after parameters.");
+
+            Consume(TokenType.LEFT_BRACE, $"Expect '{{' before {kind} body.");
+            List<Stmt?> body = Block();
+            return new Stmt.Function(name, parameters, body);
         }
 
         private Stmt VarDeclaration()
@@ -192,24 +219,12 @@ namespace InterpreterProject.ParserModule
 
         private Expr Expression()
         {
-            return Comma();
-        }
-
-        private Expr Comma()
-        {
-            Expr expr = Assignment();
-            while (Match(TokenType.COMMA))
-            {
-                Token op = Previous();
-                Expr right = Assignment();
-                expr = new Expr.Binary(expr, op, right);
-            }
-            return expr;
+            return Assignment();
         }
 
         private Expr Assignment()
         {
-            Expr expr = Conditional();
+            Expr expr = Or();
 
             if (Match(TokenType.EQUAL))
             {
@@ -222,19 +237,6 @@ namespace InterpreterProject.ParserModule
                 Error(equals, "Invalid assignment target.");
             }
 
-            return expr;
-        }
-
-        private Expr Conditional()
-        {
-            Expr expr = Or();
-            if (Match(TokenType.QUESTION))
-            {
-                Expr thenBranch = Expression();
-                Consume(TokenType.COLON, "Expect ':' after then branch of conditional expression.");
-                Expr elseBranch = Conditional();
-                expr = new Expr.Conditional(expr, thenBranch, elseBranch);
-            }
             return expr;
         }
 
@@ -370,7 +372,47 @@ namespace InterpreterProject.ParserModule
                 return new Expr.Unary(op, right);
             }
 
-            return Primary();
+            return Call();
+        }
+
+        private Expr Call()
+        {
+            Expr expr = Primary();
+
+            while (true)
+            {
+                if (Match(TokenType.LEFT_PAREN))
+                {
+                    expr = FinishCall(expr);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return expr;
+        }
+
+        private Expr FinishCall(Expr callee)
+        {
+            List<Expr> arguments = new();
+
+            if (!Check(TokenType.RIGHT_PAREN))
+            {
+                do
+                {
+                    if (arguments.Count >= 255)
+                    {
+                        Error(Peek(), "Can't have more than 255 arguments.");
+                    }
+
+                    arguments.Add(Expression());
+                } while (Match(TokenType.COMMA));                
+            }
+
+            Token paren = Consume(TokenType.RIGHT_PAREN, "Expect ')' after arguments.");
+            return new Expr.Call(callee, paren, arguments);
         }
 
         private Expr Primary()
@@ -395,32 +437,6 @@ namespace InterpreterProject.ParserModule
                 Consume(TokenType.RIGHT_PAREN, "Expect ')' after expression.");
                 return new Expr.Grouping(expr);
             }
-
-            if (Match(TokenType.BANG_EQUAL, TokenType.EQUAL_EQUAL))
-            {
-                Error(Previous(), "Missing left-hand operand.");
-                Comparison();
-                return null!;
-            }
-            if (Match(TokenType.GREATER, TokenType.GREATER_EQUAL, TokenType.LESS, TokenType.LESS_EQUAL))
-            {
-                Error(Previous(), "Missing left-hand operand.");
-                Term();
-                return null!;
-            }
-            if (Match(TokenType.PLUS))
-            {
-                Error(Previous(), "Missing left-hand operand.");
-                Factor();
-                return null!;
-            }
-            if (Match(TokenType.SLASH, TokenType.STAR))
-            {
-                Error(Previous(), "Missing left-hand operand.");
-                Unary();
-                return null!;
-            }
-
 
             throw Error(Peek(), "Expect expression.");
         }

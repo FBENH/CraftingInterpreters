@@ -34,11 +34,6 @@ namespace InterpreterProject.ParserModule
             return Parenthesize(expr.Opertor.Lexeme, [expr.Right]);
         }
 
-        public string Visit(Expr.Conditional expr)
-        {
-            return Parenthesize("?:", [expr.Condition, expr.ThenBranch, expr.ElseBranch]);
-        }
-
         public string Visit(Expr.Variable expr)
         {
 
@@ -51,6 +46,11 @@ namespace InterpreterProject.ParserModule
         }
 
         public string Visit(Expr.Logical logical)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string Visit(Expr.Call call)
         {
             throw new NotImplementedException();
         }
