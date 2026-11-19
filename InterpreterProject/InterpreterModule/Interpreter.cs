@@ -295,7 +295,7 @@ namespace InterpreterProject.InterpreterModule
 
         public object? Visit(Stmt.Function stmt)
         {
-            var function = new LoxFunction(stmt);
+            var function = new LoxFunction(stmt, environment);
             environment.Define(stmt.Name.Lexeme, function);
 
             return null;
